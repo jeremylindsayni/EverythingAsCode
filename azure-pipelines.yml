@@ -10,7 +10,7 @@ stages:
       vmImage: 'Ubuntu 16.04'
     steps:
     - script: echo Build
-      displayName: 'Run a multi-line script'
+      displayName: 'First step in building the website skeleton'
 
 - stage: build_integration
   displayName: 'Build the integration environment'
@@ -21,7 +21,7 @@ stages:
       vmImage: 'Ubuntu 16.04'
     steps:
     - script: echo Build Integration Infrastructure
-      displayName: 'Run a multi-line script'
+      displayName: 'First step in building the integration infrastructure'
 
 - stage: deploy_to_integration
   displayName: 'Deploy the website to the integration environment'
@@ -32,6 +32,52 @@ stages:
       vmImage: 'Ubuntu 16.04'
     steps:
     - script: echo Deploy Website to Integration
-      displayName: 'Run a multi-line script'
+      displayName: 'First step in deploying the website to integration'
+
+
+- stage: build_test
+  displayName: 'Build the test environment'
+  dependsOn: deploy_to_integration
+  jobs:
+  - job: create_infrastructure
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Build Test Infrastructure
+      displayName: 'First step in building the test infrastructure'
+
+- stage: deploy_to_test
+  displayName: 'Deploy the website to the test environment'
+  dependsOn: build_test
+  jobs:
+  - job: deploy_artefacts_to_test
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy Website to Test
+      displayName: 'First step in deploying the website to test'
+
+- stage: build_demo
+  displayName: 'Build the demo environment'
+  dependsOn: deploy_to_test
+  jobs:
+  - job: create_infrastructure
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Build Demo Infrastructure
+      displayName: 'First step in building the demo infrastructure'
+
+- stage: deploy_to_demo
+  displayName: 'Deploy the website to the demo environment'
+  dependsOn: build_demo
+  jobs:
+  - job: deploy_artefacts_to_demo
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy Website to Demo
+      displayName: 'First step in deploying the website to demo'
+
 
       
