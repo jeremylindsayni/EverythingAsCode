@@ -1,19 +1,37 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+stages:
+- stage: build
+  displayName: 'Build and test the website'
+  jobs:
+  - job: run_build
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Build
+      displayName: 'Run a multi-line script'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- stage: build_integration
+  displayName: 'Build the integration environment'
+  dependsOn: build
+  jobs:
+  - job: create_infrastructure
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Build Integration Infrastructure
+      displayName: 'Run a multi-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- stage: deploy_to_integration
+  displayName: 'Deploy the website to the integration environment'
+  dependsOn: build_integration
+  jobs:
+  - job: deploy_artefacts_to_integration
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Deploy Website to Integration
+      displayName: 'Run a multi-line script'
+
+      
