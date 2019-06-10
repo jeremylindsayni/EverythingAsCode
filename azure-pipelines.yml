@@ -34,6 +34,16 @@ stages:
     - script: echo Deploy Website to Integration
       displayName: 'First step in deploying the website to integration'
 
+- stage: run_system_quality_tests
+  displayName: 'Run the system quality tests'
+  dependsOn: deploy_to_integration
+  jobs:
+  - job: run_non_functional_tests
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - script: echo Run system quality tests
+      displayName: 'Running the system quality tests'
 
 - stage: build_test
   displayName: 'Build the test environment'
