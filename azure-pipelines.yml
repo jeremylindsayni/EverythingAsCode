@@ -16,12 +16,11 @@ stages:
   displayName: 'Build the integration environment'
   dependsOn: build
   jobs:
-  - job: create_infrastructure
-    pool:
-      vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo Build Integration Infrastructure
+  - template: ci/templates/create-resource-group.yml
+    parameters:
+      name: create_infrastructure
       displayName: 'First step in building the integration infrastructure'
+      vmImage: 'Ubuntu-16.04'
 
 - stage: deploy_to_integration
   displayName: 'Deploy the website to the integration environment'
