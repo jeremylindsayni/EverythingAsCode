@@ -21,7 +21,10 @@ stages:
       name: create_infrastructure
       displayName: 'First step in building the integration infrastructure'
       vmImage: 'Ubuntu-16.04'
+<<<<<<< HEAD
       resourceGroupName: integration
+=======
+>>>>>>> 7a526d6a66416fed19d5db6736219ca283c25589
 
 - stage: deploy_to_integration
   displayName: 'Deploy the website to the integration environment'
