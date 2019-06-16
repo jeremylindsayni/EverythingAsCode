@@ -11,8 +11,8 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   steps:
   - task: AzureCLI@1
-      #displayName: ${{ parameters.displayName }}
-      #inputs:
+    displayName: ${{ parameters.displayName }}
+    inputs:
       azureSubscription: ${{ parameters.subscription }}
       scriptLocation: 'inlineScript'
       inlineScript: az group create -n ${{ parameters.resourceGroupName }}-rg -l uksouth
