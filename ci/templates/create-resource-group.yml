@@ -11,7 +11,7 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   steps:
   - task: AzureCLI@1
-      displayName: ${{ parameters.displayName }}
+      #displayName: ${{ parameters.displayName }}
       inputs:
       azureSubscription: ${{ parameters.subscription }}
       scriptLocation: 'inlineScript'
