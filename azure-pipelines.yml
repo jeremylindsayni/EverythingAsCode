@@ -16,12 +16,12 @@ stages:
   displayName: 'Build the integration environment'
   dependsOn: build
   jobs:
-  - job: create_infrastructure
-    pool:
-      vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo Build Integration Infrastructure
+  - template: ci/templates/create-resource-group.yml
+    parameters:
+      name: create_infrastructure
       displayName: 'First step in building the integration infrastructure'
+      vmImage: 'Ubuntu-16.04'
+      resourceGroupName: integration
 
 - stage: deploy_to_integration
   displayName: 'Deploy the website to the integration environment'
@@ -49,12 +49,12 @@ stages:
   displayName: 'Build the test environment'
   dependsOn: deploy_to_integration
   jobs:
-  - job: create_infrastructure
-    pool:
-      vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo Build Test Infrastructure
+  - template: ci/templates/create-resource-group.yml
+    parameters:
+      name: create_infrastructure
       displayName: 'First step in building the test infrastructure'
+      vmImage: 'Ubuntu-16.04'
+      resourceGroupName: testing
 
 - stage: deploy_to_test
   displayName: 'Deploy the website to the test environment'
@@ -71,12 +71,12 @@ stages:
   displayName: 'Build the demo environment'
   dependsOn: deploy_to_test
   jobs:
-  - job: create_infrastructure
-    pool:
-      vmImage: 'Ubuntu 16.04'
-    steps:
-    - script: echo Build Demo Infrastructure
+  - template: ci/templates/create-resource-group.yml
+    parameters:
+      name: create_infrastructure
       displayName: 'First step in building the demo infrastructure'
+      vmImage: 'Ubuntu-16.04'
+      resourceGroupName: demonstration
 
 - stage: deploy_to_demo
   displayName: 'Deploy the website to the demo environment'

@@ -1,0 +1,13 @@
+parameters:
+  name: '' 
+  vmImage: ''
+  displayName: ''
+  resourceGroupName: ''
+
+jobs:
+- job: ${{ parameters.name }}
+  pool: 
+    vmImage: ${{ parameters.vmImage }}
+  steps:
+  - script: echo create resource group for ${{ parameters.resourceGroupName }}
+    displayName: ${{ parameters.displayName }}
