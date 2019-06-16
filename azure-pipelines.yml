@@ -25,7 +25,7 @@ stages:
       displayName: 'First step in building the integration infrastructure'
       vmImage: 'Ubuntu-16.04'
       resourceGroupName: integration
-      subscription: ${subscription}
+      subscription: $(subscription)
 
 - stage: deploy_to_integration
   displayName: 'Deploy the website to the integration environment'
@@ -59,7 +59,7 @@ stages:
       displayName: 'First step in building the test infrastructure'
       vmImage: 'Ubuntu-16.04'
       resourceGroupName: testing
-      subscription: ${subscription}
+      subscription: $(subscription)
 
 - stage: deploy_to_test
   displayName: 'Deploy the website to the test environment'
@@ -82,7 +82,7 @@ stages:
       displayName: 'First step in building the demo infrastructure'
       vmImage: 'Ubuntu-16.04'
       resourceGroupName: demonstration
-      subscription: ${subscription}
+      subscription: $(subscription)
 
 - stage: deploy_to_demo
   displayName: 'Deploy the website to the demo environment'
