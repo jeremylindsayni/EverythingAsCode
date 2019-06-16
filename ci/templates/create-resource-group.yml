@@ -1,23 +1,13 @@
 parameters:
-<<<<<<< HEAD
   name: '' 
   vmImage: ''
   displayName: ''
   resourceGroupName: ''
-=======
-  name: ''  # defaults for any parameters that aren't specified
-  vmImage: ''
-  displayName: ''
->>>>>>> 7a526d6a66416fed19d5db6736219ca283c25589
 
 jobs:
 - job: ${{ parameters.name }}
   pool: 
     vmImage: ${{ parameters.vmImage }}
   steps:
-<<<<<<< HEAD
   - script: echo create resource group for ${{ parameters.resourceGroupName }}
-=======
-  - script: echo running templated job
->>>>>>> 7a526d6a66416fed19d5db6736219ca283c25589
     displayName: ${{ parameters.displayName }}
