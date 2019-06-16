@@ -3,11 +3,16 @@ parameters:
   vmImage: ''
   displayName: ''
   resourceGroupName: ''
+  subscription: ''
 
 jobs:
 - job: ${{ parameters.name }}
   pool: 
     vmImage: ${{ parameters.vmImage }}
   steps:
-  - script: echo create resource group for ${{ parameters.resourceGroupName }}
-    displayName: ${{ parameters.displayName }}
+  - task: AzureCLI@1
+      displayName: ${{ parameters.displayName }}
+      inputs:
+      azureSubscription: ${{ parameters.subscription }}
+      scriptLocation: 'inlineScript'
+      inlineScript: az group create -n ${{ parameters.resourceGroupName }}-rg -l uksouth
