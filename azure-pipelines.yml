@@ -43,8 +43,7 @@ stages:
         location: 'UK South'
         templateLocation: 'URL of the file'
         csmFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.json'
-        csmParametersFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.parameters.json'
-        overrideParameters: '-hostingPlanName jeremy'
+        overrideParameters: '-hostingPlanName integration-webfarm'
         deploymentMode: 'Incremental'
 
 - stage: deploy_to_integration
