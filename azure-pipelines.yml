@@ -80,9 +80,28 @@ stages:
       resourceGroupName: testing
       subscription: $(subscription)
 
+- stage: deploy_app_service_to_test
+  displayName: 'Deploy the app service to the test environment'
+  dependsOn: build_test
+  jobs:
+  - job: deploy_app_service_to_test
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - task: AzureResourceGroupDeployment@2
+      inputs:
+        azureSubscription: '$(subscription)'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'test-rg'
+        location: 'UK South'
+        templateLocation: 'URL of the file'
+        csmFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.json'
+        overrideParameters: '-hostingPlanName test-webfarm'
+        deploymentMode: 'Incremental'
+
 - stage: deploy_to_test
   displayName: 'Deploy the website to the test environment'
-  dependsOn: build_test
+  dependsOn: deploy_app_service_to_test
   jobs:
   - job: deploy_artefacts_to_test
     pool:
