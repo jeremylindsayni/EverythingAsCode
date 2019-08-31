@@ -44,7 +44,7 @@ stages:
         templateLocation: 'URL of the file'
         csmFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.json'
         csmParametersFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.parameters.json'
-        overrideParameters: '"hostingPlanName":"mysimplewebsiteplan"'
+        overrideParameters: '-hostingPlanName jeremy'
         deploymentMode: 'Incremental'
 
 - stage: deploy_to_integration
