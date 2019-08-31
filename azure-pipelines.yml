@@ -16,7 +16,7 @@ stages:
       displayName: 'First step in building the website skeleton'
 
 - stage: build_integration
-  displayName: 'Build the integration environment'
+  displayName: 'Build the integration environment resource group'
   dependsOn: build
   jobs:
   - template: ci/templates/create-resource-group.yml
@@ -27,9 +27,29 @@ stages:
       resourceGroupName: integration
       subscription: $(subscription)
 
+- stage: deploy_app_service_to_integration
+  displayName: 'Deploy the app service to the integration environment'
+  dependsOn: build_integration
+  jobs:
+  - job: deploy_app_service_to_integration
+    pool:
+      vmImage: 'Ubuntu 16.04'
+    steps:
+    - task: AzureResourceGroupDeployment@2
+      inputs:
+        azureSubscription: $(subscription)
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'integration-rg'
+        location: 'UK South'
+        templateLocation: 'URL of the file'
+        csmFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.json'
+        csmParametersFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.parameters.json'
+        deploymentMode: 'Incremental'
+
+
 - stage: deploy_to_integration
   displayName: 'Deploy the website to the integration environment'
-  dependsOn: build_integration
+  dependsOn: deploy_app_service_to_integration
   jobs:
   - job: deploy_artefacts_to_integration
     pool:
