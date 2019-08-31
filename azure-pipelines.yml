@@ -37,14 +37,14 @@ stages:
     steps:
     - task: AzureResourceGroupDeployment@2
       inputs:
-        azureSubscription: $(subscription)
+        azureSubscription: '$(subscription)'
         action: 'Create Or Update Resource Group'
         resourceGroupName: 'integration-rg'
         location: 'UK South'
         templateLocation: 'URL of the file'
         csmFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.json'
         csmParametersFileLink: 'https://raw.githubusercontent.com/jeremylindsayni/EverythingAsCode/master/SimpleAzureAppService/SimpleAzureAppService/WebSite.parameters.json'
-        overrideParameters: 'hostingPlanName: mysimplewebsiteplan'
+        overrideParameters: '"hostingPlanName":"mysimplewebsiteplan"'
         deploymentMode: 'Incremental'
 
 - stage: deploy_to_integration
